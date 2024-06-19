@@ -8,3 +8,4 @@ services:
       - 10002:10002
     volumes:
       - ./script.hql:/script.hql
+      - ./trace.csv:/trace.csv
