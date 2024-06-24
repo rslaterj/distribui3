@@ -1,11 +1,11 @@
+version: '3.8'
+
 services:
-  hive:
-    image: apache/hive:4.0.0
-    environment:
-      SERVICE_NAME: hiveserver2
+  hadoop:
+    build: .
     ports:
-      - 10000:10000
-      - 10002:10002
-    volumes:
-      - ./script.hql:/script.hql
-      - ./trace.csv:/trace.csv
+      - "50070:50070"
+      - "8080:8080"
+      - "8088:8088"
+    stdin_open: true
+    tty: true

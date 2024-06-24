@@ -1,22 +1,9 @@
-FROM openjdk:8-jdk-alpine
+FROM suhothayan/hadoop-spark-pig-hive:2.9.2
 
-# Install wget
-RUN apk add --no-cache wget bash
+EXPOSE 50070 8088 8080
 
-# Download and extract Pig
-RUN wget http://apache.mirrors.pair.com/pig/pig-0.17.0/pig-0.17.0.tar.gz \
-    && tar -xzvf pig-0.17.0.tar.gz -C /opt \
-    && rm pig-0.17.0.tar.gz
+# Copy the Hive and Pig scripts into the container
+COPY hive.hql /usr/local/hive_scripts/hive.hql
+COPY pig_script.pig /usr/local/pig_scripts/pig_script.pig
 
-# Set environment variables
-ENV PIG_HOME /opt/pig-0.17.0
-ENV PATH $PIG_HOME/bin:$PATH
-
-# Create a working directory
-WORKDIR /pig
-
-# Copy the Pig script into the container
-COPY pig-script.pig /pig-script.pig
-
-# Run Pig in local mode
-CMD ["pig", "-x", "local", "/pig-script.pig"]
+CMD ["bash"]
